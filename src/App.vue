@@ -1,505 +1,145 @@
 <script setup>
-import { people } from './data/data';
+
+const images = [
+    {
+        imageUrl: '',
+    }
+]
+
 </script>
 
 <template>
-    <section>
-        <h1 style="text-align:center;margin:40px 0px;font-size:40px">Data Example</h1>
-        <section class="content">
-            <section class="person"><img :src="people[0].image" :alt="people[0].name">
-                <div>
-                    <h1>{{ people[0].name }}</h1>
-                    <h2>{{ people[0].designation }}</h2>
-                    <p>{{ people[0].location }}</p>
-                </div>
-            </section>
-            
-            <section class="person"><img :src="people[1].image" :alt="people[1].name">
-                <div>
-                    <h1>{{ people[1].name }}</h1>
-                    <h2>{{ people[1].designation }}</h2>
-                    <p>{{ people[1].location }}</p>
-                </div>
-            </section>
-            
-            <section class="person"><img :src="people[2].image" :alt="people[2].name">
-                <div>
-                    <h1>{{ people[2].name }}</h1>
-                    <h2>{{ people[2].designation }}</h2>
-                    <p>{{ people[2].location }}</p>
-                </div>
-            </section>
-            
-        </section>
-    </section>
+    <div class="slideshow-container">
+
+        <!-- Full-width images with number and caption text -->
+        <div class="mySlides fade">
+            <div class="numbertext">1 / 3</div>
+            <img src="img1.jpg" style="width:100%">
+            <div class="text">Caption Text</div>
+        </div>
+
+        <div class="mySlides fade">
+            <div class="numbertext">2 / 3</div>
+            <img src="img2.jpg" style="width:100%">
+            <div class="text">Caption Two</div>
+        </div>
+
+        <div class="mySlides fade">
+            <div class="numbertext">3 / 3</div>
+            <img src="img3.jpg" style="width:100%">
+            <div class="text">Caption Three</div>
+        </div>
+
+        <!-- Next and previous buttons -->
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+    <br>
+
+    <!-- The dots/circles -->
+    <div style="text-align:center">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+    </div>
 </template>
 
 <style scoped>
-.content {
-    width: 100%;
-    margin-right: auto;
-    margin-left: auto
-}
-
-@media (min-width:640px) {
-    .content {
-        max-width: 640px
-    }
-}
-
-@media (min-width:768px) {
-    .content {
-        max-width: 768px
-    }
-}
-
-@media (min-width:1024px) {
-    .content {
-        max-width: 1024px
-    }
-}
-
-@media (min-width:1280px) {
-    .content {
-        max-width: 1280px
-    }
-}
-
-@media (min-width:1536px) {
-    .content {
-        max-width: 1536px
-    }
-}
-
-.content {
-    display: grid;
-    gap: 1.25rem;
-    grid-template-columns: repeat(3, minmax(0, 1fr))
-}
-
-.person img {
-    --tw-bg-opacity: 1;
-    background-color: rgba(191, 219, 254, var(--tw-bg-opacity))
-}
-
-.person div {
-    margin-top: 1.25rem
-}
-
-.person h1 {
-    font-size: 1.5rem;
-    line-height: 2rem
-}
-
-.person h2 {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-    margin-top: .5rem
-}
-
-.person p {
-    margin-top: .5rem;
-    --tw-text-opacity: 1;
-    color: rgba(107, 114, 128, var(--tw-text-opacity))
-}
-
-#app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale
-}
-
-/*! tailwindcss v2.1.2 | MIT License | https://tailwindcss.com */
-/*! modern-normalize v1.0.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
-*,
-::after,
-::before {
+* {
     box-sizing: border-box
 }
 
-:root {
-    -moz-tab-size: 4;
-    -o-tab-size: 4;
-    tab-size: 4
-}
-
-html {
-    line-height: 1.15;
-    -webkit-text-size-adjust: 100%
-}
-
-body {
-    margin: 0
-}
-
-body {
-    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'
-}
-
-hr {
-    height: 0;
-    color: inherit
-}
-
-abbr[title] {
-    -webkit-text-decoration: underline dotted;
-    text-decoration: underline dotted
-}
-
-b,
-strong {
-    font-weight: bolder
-}
-
-code,
-kbd,
-pre,
-samp {
-    font-family: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
-    font-size: 1em
-}
-
-small {
-    font-size: 80%
-}
-
-sub,
-sup {
-    font-size: 75%;
-    line-height: 0;
+/* Slideshow container */
+.slideshow-container {
+    max-width: 1000px;
     position: relative;
-    vertical-align: baseline
+    margin: auto;
 }
 
-sub {
-    bottom: -.25em
+/* Hide the images by default */
+.mySlides {
+    display: none;
 }
 
-sup {
-    top: -.5em
+/* Next & previous buttons */
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
 }
 
-table {
-    text-indent: 0;
-    border-color: inherit
+/* Position the "next button" to the right */
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
 }
 
-button,
-input,
-optgroup,
-select,
-textarea {
-    font-family: inherit;
-    font-size: 100%;
-    line-height: 1.15;
-    margin: 0
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
-button,
-select {
-    text-transform: none
-}
-
-[type=button],
-button {
-    -webkit-appearance: button
-}
-
-legend {
-    padding: 0
-}
-
-progress {
-    vertical-align: baseline
-}
-
-summary {
-    display: list-item
-}
-
-blockquote,
-dd,
-dl,
-figure,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-hr,
-p,
-pre {
-    margin: 0
-}
-
-button {
-    background-color: transparent;
-    background-image: none
-}
-
-button:focus {
-    outline: 1px dotted;
-    outline: 5px auto -webkit-focus-ring-color
-}
-
-fieldset {
-    margin: 0;
-    padding: 0
-}
-
-ol,
-ul {
-    list-style: none;
-    margin: 0;
-    padding: 0
-}
-
-html {
-    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    line-height: 1.5
-}
-
-body {
-    font-family: inherit;
-    line-height: inherit
-}
-
-*,
-::after,
-::before {
-    box-sizing: border-box;
-    border-width: 0;
-    border-style: solid;
-    border-color: #e5e7eb
-}
-
-hr {
-    border-top-width: 1px
-}
-
-img {
-    border-style: solid
-}
-
-textarea {
-    resize: vertical
-}
-
-input::-moz-placeholder,
-textarea::-moz-placeholder {
-    opacity: 1;
-    color: #9ca3af
-}
-
-input:-ms-input-placeholder,
-textarea:-ms-input-placeholder {
-    opacity: 1;
-    color: #9ca3af
-}
-
-input::placeholder,
-textarea::placeholder {
-    opacity: 1;
-    color: #9ca3af
-}
-
-button {
-    cursor: pointer
-}
-
-table {
-    border-collapse: collapse
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-size: inherit;
-    font-weight: inherit
-}
-
-a {
-    color: inherit;
-    text-decoration: inherit
-}
-
-button,
-input,
-optgroup,
-select,
-textarea {
-    padding: 0;
-    line-height: inherit;
-    color: inherit
-}
-
-code,
-kbd,
-pre,
-samp {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
-}
-
-audio,
-canvas,
-embed,
-iframe,
-img,
-object,
-svg,
-video {
-    display: block;
-    vertical-align: middle
-}
-
-img,
-video {
-    max-width: 100%;
-    height: auto
-}
-
-.container {
+/* Caption text */
+.text {
+    color: #f2f2f2;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
     width: 100%;
-    margin-right: auto;
-    margin-left: auto
+    text-align: center;
 }
 
-@media (min-width:640px) {
-    .container {
-        max-width: 640px
+/* Number text (1/3 etc) */
+.numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.active,
+.dot:hover {
+    background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@keyframes fade {
+    from {
+        opacity: .4
     }
-}
 
-@media (min-width:768px) {
-    .container {
-        max-width: 768px
-    }
-}
-
-@media (min-width:1024px) {
-    .container {
-        max-width: 1024px
-    }
-}
-
-@media (min-width:1280px) {
-    .container {
-        max-width: 1280px
-    }
-}
-
-@media (min-width:1536px) {
-    .container {
-        max-width: 1536px
-    }
-}
-
-.table {
-    display: table
-}
-
-.grid {
-    display: grid
-}
-
-.mt-2 {
-    margin-top: .5rem
-}
-
-* {
-    --tw-shadow: 0 0 #0000
-}
-
-* {
-    --tw-ring-inset: var(--tw-empty, );
-    /*!*/
-    /*!*/
-    --tw-ring-offset-width: 0px;
-    --tw-ring-offset-color: #fff;
-    --tw-ring-color: rgba(59, 130, 246, 0.5);
-    --tw-ring-offset-shadow: 0 0 #0000;
-    --tw-ring-shadow: 0 0 #0000
-}
-
-.grid-cols-3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr))
-}
-
-@-webkit-keyframes spin {
     to {
-        transform: rotate(360deg)
-    }
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg)
-    }
-}
-
-@-webkit-keyframes ping {
-
-    100%,
-    75% {
-        transform: scale(2);
-        opacity: 0
-    }
-}
-
-@keyframes ping {
-
-    100%,
-    75% {
-        transform: scale(2);
-        opacity: 0
-    }
-}
-
-@-webkit-keyframes pulse {
-    50% {
-        opacity: .5
-    }
-}
-
-@keyframes pulse {
-    50% {
-        opacity: .5
-    }
-}
-
-@-webkit-keyframes bounce {
-
-    0%,
-    100% {
-        transform: translateY(-25%);
-        -webkit-animation-timing-function: cubic-bezier(.8, 0, 1, 1);
-        animation-timing-function: cubic-bezier(.8, 0, 1, 1)
-    }
-
-    50% {
-        transform: none;
-        -webkit-animation-timing-function: cubic-bezier(0, 0, .2, 1);
-        animation-timing-function: cubic-bezier(0, 0, .2, 1)
-    }
-}
-
-@keyframes bounce {
-
-    0%,
-    100% {
-        transform: translateY(-25%);
-        -webkit-animation-timing-function: cubic-bezier(.8, 0, 1, 1);
-        animation-timing-function: cubic-bezier(.8, 0, 1, 1)
-    }
-
-    50% {
-        transform: none;
-        -webkit-animation-timing-function: cubic-bezier(0, 0, .2, 1);
-        animation-timing-function: cubic-bezier(0, 0, .2, 1)
+        opacity: 1
     }
 }
 </style>
