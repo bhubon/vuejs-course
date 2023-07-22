@@ -47,7 +47,7 @@ const swithchNa = (index) => {
     <div class="slideshow-container">
 
         <!-- Full-width images with number and caption text -->
-        <div class="mySlides fade">
+        <div class="mySlides">
             <div class="numbertext">{{ currentIndex + 1 }} / {{ imagesLength }}</div>
             <img :src="images[currentIndex].full" style="width:100%">
             <div class="text">{{ images[currentIndex].caption }}</div>
@@ -164,21 +164,4 @@ img{
     object-fit: cover;
 }
 
-/* Fading animation */
-.fade {
-    animation-name: fade;
-    animation-duration: 1.5s;
-}
-
-
-
-@keyframes fade {
-    from {
-        opacity: .4
-    }
-
-    to {
-        opacity: 1
-    }
-}
 </style>
