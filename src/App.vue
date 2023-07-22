@@ -1,10 +1,45 @@
 <script setup>
 
+import { ref, computed } from 'vue';
+
 const images = [
     {
-        imageUrl: '',
+        thumb: "https://images.unsplash.com/photo-1682685797769-481b48222adf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHx8&auto=format&fit=crop&w=300&q=60",
+        full: "https://images.unsplash.com/photo-1682685797769-481b48222adf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE2fHx8ZW58MHx8fHx8&auto=format&fit=crop&w=1024&q=60",
+        caption: 'Night in Desert'
+    },
+    {
+        thumb: "https://images.unsplash.com/photo-1682695794816-7b9da18ed470?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDZ8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=300&q=60",
+        full: "https://images.unsplash.com/photo-1682695794816-7b9da18ed470?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE2fHx8ZW58MHx8fHx8&auto=format&fit=crop&w=1024&q=60",
+        caption: 'Day In Desert'
+    },
+    {
+        thumb: "https://images.unsplash.com/photo-1682685797661-9e0c87f59c60?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE4fHx8ZW58MHx8fHx8&auto=format&fit=crop&w=300&q=60",
+        full: "https://images.unsplash.com/photo-1682685797661-9e0c87f59c60?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE2fHx8ZW58MHx8fHx8&auto=format&fit=crop&w=1024&q=60",
+        caption: 'Sky view in desert'
+    },
+    {
+        thumb: "https://plus.unsplash.com/premium_photo-1666963323736-5ee1c16ef19d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE4fHx8ZW58MHx8fHx8&auto=format&fit=crop&w=300&q=60",
+        full: "https://plus.unsplash.com/premium_photo-1666963323736-5ee1c16ef19d??ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE2fHx8ZW58MHx8fHx8&auto=format&fit=crop&w=1024&q=60",
+        caption: 'Mountain'
     }
 ]
+
+let currentIndex = ref(0);
+const imagesLength = images.length
+
+const swithchSlider = (targer) => {
+
+    if ('next' == targer) {
+        currentIndex.value = (imagesLength - 1) > currentIndex.value ? currentIndex.value + 1 : 0;
+    } else {
+        currentIndex.value = currentIndex.value > 0 ? currentIndex.value - 1 : (imagesLength - 1);
+    }
+}
+
+const swithchNa = (index) => {
+    currentIndex.value = index
+}
 
 </script>
 
@@ -13,40 +48,30 @@ const images = [
 
         <!-- Full-width images with number and caption text -->
         <div class="mySlides fade">
-            <div class="numbertext">1 / 3</div>
-            <img src="img1.jpg" style="width:100%">
-            <div class="text">Caption Text</div>
-        </div>
-
-        <div class="mySlides fade">
-            <div class="numbertext">2 / 3</div>
-            <img src="img2.jpg" style="width:100%">
-            <div class="text">Caption Two</div>
-        </div>
-
-        <div class="mySlides fade">
-            <div class="numbertext">3 / 3</div>
-            <img src="img3.jpg" style="width:100%">
-            <div class="text">Caption Three</div>
+            <div class="numbertext">{{ currentIndex + 1 }} / {{ imagesLength }}</div>
+            <img :src="images[currentIndex].full" style="width:100%">
+            <div class="text">{{ images[currentIndex].caption }}</div>
         </div>
 
         <!-- Next and previous buttons -->
-        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        <a class="prev" @click="swithchSlider('prev')">&#10094;</a>
+        <a class="next" @click="swithchSlider('next')">&#10095;</a>
     </div>
     <br>
 
     <!-- The dots/circles -->
     <div style="text-align:center">
-        <span class="dot" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>
+        <span class="dot" v-for="(image, index) in images" :key="index" @click="swithchNa(index)"
+            :style="{ backgroundImage: `url(${image.thumb})` }"></span>
     </div>
 </template>
 
 <style scoped>
 * {
     box-sizing: border-box
+}
+body{
+    background: #fff;
 }
 
 /* Slideshow container */
@@ -57,9 +82,7 @@ const images = [
 }
 
 /* Hide the images by default */
-.mySlides {
-    display: none;
-}
+
 
 /* Next & previous buttons */
 .prev,
@@ -67,16 +90,19 @@ const images = [
     cursor: pointer;
     position: absolute;
     top: 50%;
-    width: auto;
     margin-top: -22px;
-    padding: 16px;
     color: white;
     font-weight: bold;
     font-size: 18px;
     transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
     user-select: none;
+    background: #1e90ff;
+    line-height: 42px;
+    height: 42px;
+    width: 42px;
+    border-radius: 50% !important;
 }
+
 
 /* Position the "next button" to the right */
 .next {
@@ -84,11 +110,14 @@ const images = [
     border-radius: 3px 0 0 3px;
 }
 
-/* On hover, add a black background color with a little bit see-through */
-.prev:hover,
-.next:hover {
-    background-color: rgba(0, 0, 0, 0.8);
+/* Position the "prev button" to the right */
+.prev {
+    left: 0;
+    border-radius: 3px 0 0 3px;
 }
+
+/* On hover, add a black background color with a little bit see-through */
+
 
 /* Caption text */
 .text {
@@ -113,13 +142,16 @@ const images = [
 /* The dots/bullets/indicators */
 .dot {
     cursor: pointer;
-    height: 15px;
-    width: 15px;
+    height: 50px;
+    width: 50px;
     margin: 0 2px;
     background-color: #bbb;
     border-radius: 50%;
     display: inline-block;
     transition: background-color 0.6s ease;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 
 .active,
@@ -127,11 +159,18 @@ const images = [
     background-color: #717171;
 }
 
+img{
+    height: 730px;
+    object-fit: cover;
+}
+
 /* Fading animation */
 .fade {
     animation-name: fade;
     animation-duration: 1.5s;
 }
+
+
 
 @keyframes fade {
     from {
