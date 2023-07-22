@@ -1,6 +1,6 @@
 <script setup>
 
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 
 const images = [
     {
@@ -70,7 +70,8 @@ const swithchNa = (index) => {
 * {
     box-sizing: border-box
 }
-body{
+
+body {
     background: #fff;
 }
 
@@ -159,9 +160,8 @@ body{
     background-color: #717171;
 }
 
-img{
+img {
     height: 730px;
     object-fit: cover;
 }
-
 </style>
